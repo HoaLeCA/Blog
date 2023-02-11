@@ -18,7 +18,8 @@
   "type": "module",
   "devDependencies": {},
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node server/index.js",
+    "server": "nodemon server/index.js"
   },
   "keywords": [],
   "author": "",

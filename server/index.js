@@ -1,4 +1,3 @@
-import express from 'express    ';
 import express from 'express';
 import bodyParser from 'body-parser';
 import mongoose from 'mongoose';
@@ -26,5 +25,26 @@ app.use('/assets', express.static(path.join(__dirname, 'public/assests')));
 
 // configure file storage
 const storage = multer.diskStorage({
-    destination: function
-})
+  destination: function (req, res, cb) {
+    cb(null, 'public/assest');
+  },
+  filename: function (req, res, cb) {
+    cb(null, file.orginalname);
+  },
+});
+
+const upload = multer({ storage });
+
+// mongoose set up
+
+const PORT = process.env.PORT || 6001;
+mongoose.set('strictQuery', true);
+mongoose
+  .connect(process.env.MONGO_URL, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
+  .then(() => {
+    app.listen(PORT, () => console.log(`Server is running on Port: ${PORT}`));
+  })
+  .catch((error) => console.log(`${error} did not connect`));
